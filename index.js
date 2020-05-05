@@ -1,15 +1,9 @@
 const express = require('express')
 const app = express()
+const scoresRoutes = require('./routes/scores')
 
-const knex = require('knex')
-const config = require('./knexfile.js')[process.env.NODE_ENV || 'development']
-const database = knex(config)
+const port = process.env.PORT || 4000
 
-const port = process.env.port || 4000
-
-app.get('/', (request,response) => {
-    database('scores').select()
-        .then(scores => response.json(scores))
-})
+app.use('/scores', scoresRoutes)
 
 app.listen(port)
