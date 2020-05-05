@@ -7,7 +7,11 @@ app.use(express.json())
 app.get('/easy', (request,response) => {
     database('scores')
         .where({difficulty: 'Easy'})
-        .orderBy('time', 'desc')
+        .orderBy([{
+            column:'time', order: 'asc'
+        },{
+            column:'created_at', order: 'asc'
+        }])
         .limit(10)
         .then(scores => response.json(scores))
 })
