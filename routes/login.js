@@ -16,8 +16,7 @@ app.post('/', (request,response) => {
             if (foundUser[0]) {
                 checkPassword(foundUser[0].password)
             } else {
-                response.status(401)
-                response.json({status: 401, message: 'Username not found.'})
+                response.status(401).json({status: 401, message: 'Username not found.'})
             }
         })
 
@@ -25,11 +24,9 @@ app.post('/', (request,response) => {
         const match = await bcrypt.compare(password, hash)
 
         if (match) {
-            response.status(202)
-            response.json({status: 202, message: 'User logged in.'})
+            response.status(202).json({status: 202, message: 'User logged in.'})
         } else {
-            response.status(401)
-            response.json({status: 401, message: 'Password incorrect.'})
+            response.status(401).json({status: 401, message: 'Password incorrect.'})
         }
     }
 })
