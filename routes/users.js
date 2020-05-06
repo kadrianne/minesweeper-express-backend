@@ -21,14 +21,11 @@ app.post('/', (request,response) => {
                         let userData = {...request.body, password: hash}
             
                         database('users').insert(userData).returning('*')
-                            .then(user => response.json({user: user, status: 201}))
-
-                        response.status(201)
+                            .then(user => response.status(201).json({user: user, status: '201', message: 'User successfully created.'}))
                     })
                 })
             } else {
-                response.status(409)
-                response.json({status: 409, message: 'Username already exists.'})
+                response.status(409).json({status: '409', message: 'Username already exists.'})
             }
         })
 })
