@@ -22,6 +22,7 @@ function authenticateToken(request,response,next){
             return response.sendStatus(403)
         }
 
+        request.user = user
         next()
     })
 }
@@ -31,9 +32,9 @@ app.get('/', (request,response) => {
         .then(scores => response.json(scores))
 })
 
-app.get(`/:id`, authenticateToken, (request,response) => {
-    User.query().where('id',request.params.id).withGraphFetched('scores').select()
-        .then(scores => response.json(scores))
+app.get(`/scores`, authenticateToken, (request,response) => {
+    User.query().where('id',request.user.id).withGraphFetched('scores').select()
+        .then(scores => response.json(scores[0]))
 })
 
 app.post('/', (request,response) => {
