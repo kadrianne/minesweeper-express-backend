@@ -3,12 +3,12 @@ const app = express()
 const database = require('../models/database-config')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const secretKey = require('crypto').randomBytes(64).toString('hex')
+const dotenv = require('dotenv').config()
 
 app.use(express.json())
 
 function generateToken(payload){
-    return jwt.sign(payload,secretKey)
+    return jwt.sign(payload,process.env.SECRET_KEY)
 }
 
 app.post('/', (request,response) => {
