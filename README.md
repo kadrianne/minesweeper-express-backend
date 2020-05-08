@@ -1,8 +1,8 @@
-# Modern Minesweeper
+# Modern Minesweeper - Backend
 
-A refreshed take on the classic Minesweeper computer game. The game is reskinned with fun colors and emojis and has the same basic gameplay.
+This is the backend API for my Minesweeper game. This API allows the front-end to GET and POST users and scores to the database. 
 
-Front-end respository: https://github.com/kadrianne/modern-minesweeper
+Frontend respository: https://github.com/kadrianne/modern-minesweeper
 
 
 ## Built With
@@ -28,8 +28,11 @@ This was my first time building a Node/Express backend, so creating and managing
 
 1. Fork and/or clone this repo & the frontend repo - https://github.com/kadrianne/modern-minesweeper
 2. Install dependencies: `npm install`
-3. Run back-end server: `node index.js`
-4. Run front-end server: `npm start`
-5. Checkout new branch
+3. Create PostgreSQL database `createdb minesweeper`
+4. Run backend server: `node index.js`
+5. Migrate database tables: `npx knex migrate:latest`
+6. Run frontend server: `npm start`
+7. Checkout new branch
    
+I have a GitHub project board with a few backlog items here: https://github.com/kadrianne/modern-minesweeper/projects/1<br>
 If you'd like to collaborate on this project, please email me: kristine.a.du@gmail.com
