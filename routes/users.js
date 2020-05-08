@@ -27,7 +27,7 @@ function authenticateToken(request,response,next){
     })
 }
 
-app.get('/', (request,response) => {
+app.get('/', authenticateToken, (request,response) => {
     User.query().withGraphFetched('scores').select()
         .then(scores => response.json(scores))
 })
