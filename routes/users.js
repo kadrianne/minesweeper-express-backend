@@ -5,27 +5,12 @@ const bcrypt = require('bcrypt')
 const saltRounds = 10
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv').config()
+const authenticateToken = require('../helpers/authenticateToken')
 // const { check, validationResult } = require('express-validator');
 
 const User = require('../models/User')
 
 app.use(express.json())
-
-function authenticateToken(request,response,next){
-    const authHeader = request.headers['authorization']
-    const token = authHeader && authHeader.split(' ')[1]
-    if (token == null) return response.sendStatus(401)
-
-    jwt.verify(token,process.env.SECRET_KEY,(error, user) => {
-        if (error) {
-            console.log(error)
-            return response.sendStatus(403)
-        }
-
-        request.user = user
-        next()
-    })
-}
 
 app.get('/', authenticateToken, (request,response) => {
     User.query().withGraphFetched('scores').select()
