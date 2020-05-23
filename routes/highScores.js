@@ -1,10 +1,8 @@
 const express = require('express')
-const app = express()
+const router = express.Router()
 const database = require('../models/database-config')
 
-app.use(express.json())
-
-app.get('/easy', (request,response) => {
+router.get('/easy', (request,response) => {
     database('scores')
         .where({difficulty: 'Easy'})
         .orderBy([{
@@ -16,4 +14,4 @@ app.get('/easy', (request,response) => {
         .then(scores => response.json(scores))
 })
 
-module.exports = app
+module.exports = router
