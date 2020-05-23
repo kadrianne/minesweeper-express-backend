@@ -1,17 +1,15 @@
 const express = require('express')
-const app = express()
+const router = express.Router()
 const database = require('../models/database-config')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const dotenv = require('dotenv').config()
-
-app.use(express.json())
+require('dotenv').config()
 
 function generateToken(payload){
     return jwt.sign(payload,process.env.SECRET_KEY)
 }
 
-app.post('/', (request,response) => {
+router.post('/', (request,response) => {
     const username = request.body.username
     const password = request.body.password
     
@@ -38,4 +36,4 @@ app.post('/', (request,response) => {
     }
 })
 
-module.exports = app
+module.exports = router
