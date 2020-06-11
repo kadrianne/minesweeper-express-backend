@@ -26,17 +26,20 @@ router.post('/', (request,response) => {
             response.status(400).json({message: error})
         })
 
-    function checkPassword(user,hash){
+    async function checkPassword(user,hash){
         const payload = {id: user.id, display_name: user.display_name, username: user.username}
-        bcrypt.compare(password, hash, function (error, result) {
-            if (result) {
+        const match = await bcrypt.compare(password, hash)
+
+        try {
+            if (match) {
                 const token = generateToken(payload)
                 response.status(202).json({status: '202', message: 'User logged in.', token, payload})
             } else {
                 response.status(401).json({status: '401', message: 'Password incorrect.'})
             }
-        })
-        
+        } catch(error) {
+            response.status(400).json({message: error})
+        }
     }
 })
 
