@@ -12,6 +12,7 @@ function generateToken(payload){
 router.post('/', (request,response) => {
     const username = request.body.username
     const password = request.body.password
+    req.header('Origin')
     
     // Find username in db
     database('users').select('*').where('username',username)
