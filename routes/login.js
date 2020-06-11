@@ -28,11 +28,15 @@ router.post('/', (request,response) => {
         const match = await bcrypt.compare(password, hash)
         const payload = {id: user.id, display_name: user.display_name, username: user.username}
         
-        if (match) {
-            const token = generateToken(payload)
-            response.status(202).json({status: '202', message: 'User logged in.', token, payload})
-        } else {
-            response.status(401).json({status: '401', message: 'Password incorrect.'})
+        try {
+            if (match) {
+                const token = generateToken(payload)
+                response.status(202).json({status: '202', message: 'User logged in.', token, payload})
+            } else {
+                response.status(401).json({status: '401', message: 'Password incorrect.'})
+            }
+        } catch(error) {
+            response.status(400).json({message: error})
         }
     }
 })
