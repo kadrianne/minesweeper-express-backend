@@ -8,8 +8,7 @@ const loginRoutes = require('./routes/login')
 
 const port = process.env.PORT || 4000
 
-app.use(cors())
-app.options('*', cors())
+app.use(cors({credentials: true, origin: true}))
 app.use(express.json())
 app.use('/scores', scoresRoutes)
 app.use('/highscores', highScoresRoutes)
